@@ -10,23 +10,59 @@ document.body.onpointermove = event =>{
 }
 
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-document.querySelector("h1").onmouseover = event =>{
-    let iterations = 0
+// const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+// let interval = null;
+// const screen = document.querySelector(".screen"), name = document.querySelector(".name");
+
+// screen.onmouseenter = event =>{
+//     let iterations = 0
     
-    const interval = setInterval(()=>{
-        event.target.innerText = event.target.innerText.split("")
-        .map((letter, index) => {
-            if(index<iterations){
-                return event.target.dataset.value[index];
-            }
+//     clearInterval(interval);
+//     interval = setInterval(()=>{
+//         event.target.innerText = event.target.innerText.split("")
+//         .map((letter, index) => {
+//             if(index<iterations){
+//                 return event.target.dataset.value[index];
+//             }
             
-            return letters[Math.floor(Math.random()*26)]
-        })
-        .join("");
+//             return letters[Math.floor(Math.random()*26)]
+//         })
+//         .join("");
 
-        if (iterations >=9) clearInterval(interval);
+//         if (iterations >= event.dataset.value.length) {clearInterval(interval);}
 
-        iterations += 1 / 5;
-    }, 30);
+//         iterations += 1 / 3;
+//     }, 30);
+// }
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let interval = null;
+
+const screen = document.querySelector(".screen");
+const nameElement = document.querySelector(".name");
+
+screen.onmouseenter = event => {  
+  let iteration = 0;
+  
+  clearInterval(interval);
+  
+  interval = setInterval(() => {
+    nameElement.innerText = nameElement.innerText
+      .split("")
+      .map((letter, index) => {
+        if(index < iteration) {
+          return nameElement.dataset.value[index];
+        }
+      
+        return letters[Math.floor(Math.random() * 26)]
+      })
+      .join("");
+    
+    if(iteration >= nameElement.dataset.value.length){ 
+      clearInterval(interval);
+    }
+    
+    iteration += 1 / 3;
+  }, 30);
 }
